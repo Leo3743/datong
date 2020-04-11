@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>北魏平城文化主题网站</title>
+	<meta name="keywords" content="北魏平城文化">
+	<meta name="description" content="北魏平城文化">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="shortcut icon" href="images/favicon.ico">
+
+	<!-- include main css -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<!--导入布局js，共享header和footer-->
+	<script type="text/javascript" src="js/include_zi.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/jquery.mmenu.all.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css' media="all" />
+	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<script>
+        //获取cid
+        $(function () {
+            //当页面加载完成后，调用load方法，发送ajax请求加载数据
+            load();
+        });
+        function load(currentPage) {
+            //发送ajax请求，请求route/pageQuery,传递cid
+            $.get("news/pageQuery",{currentPage:currentPage},function (pb) {
+                //解析pagebean数据，展示到页面上
+                //1.分页工具条数据展示
+				var lis = "";
+				var fistPage = '<a href="javascript:load(1)"><i class="ye fa fa-backward"></i></a>'
+				var beforeNum = pb.currentPage - 1;
+                var beforePage;
+				if (beforeNum<1){
+                    beforePage = '<a href="javascript:load(1)"><i class="ye fa fa-caret-left"></i></a>';
+				} else {
+                    beforePage = '<a href="javascript:load('+beforeNum+')"><i class="ye fa fa-caret-left"></i></a>';
+				}
+				lis += fistPage;
+				lis += beforePage;
+                //1.2展示分页页码
+                /*
+                    1.一共展示10个页码，能够达到前5后4的效果
+                    2.如果前边不够5个，后边补齐10个
+                    3.如果后边不足4个，前边补齐10个
+                */
+                // 定义开始位置begin,结束位置 end
+                var begin;
+                var end;
+                //1.要显示5个页码
+                if (pb.totalPage<5){
+                    //总页码不够5页
+                    begin = 1;
+                    end = pb.totalPage;
+                }else {
+                    //总页码超过5页
+                    begin = pb.currentPage - 2;
+                    end = pb.currentPage + 2;
+                    //2.如果前边不够
+                    if (begin<1){
+                        begin = 1;
+                        end = begin + 4;
+                    }
+                    //3.如果后边不足
+                    if (end>pb.totalPage){
+                        end = pb.totalPage;
+                        begin = end - 4;
+                    }
+                }
+
+                for (var i = begin; i <= end; i++) {
+
+                    var a;
+                    if (pb.currentPage == i){
+                        a = '<a href="javascript:load('+i+')" class="active">'+i+'</a>';
+                    }else {
+                        a = '<a href="javascript:load('+i+')">'+i+'</a>';
+                    }
+
+                    lis += a;
+                }
+				//1.2展示分页页码
+
+                var nextNum = pb.currentPage + 1;
+                var nextPage;
+                if (nextNum>pb.totalPage){
+                    nextPage = '<a href="javascript:load('+pb.totalPage+')"><i class="ye fa fa-caret-right"></i></a>';
+                }else {
+                    nextPage = '<a href="javascript:load('+nextNum+')"><i class="ye fa fa-caret-right"></i></a>';
+				}
+                var lastPage = '<a href="javascript:load('+pb.totalPage+')"><i class="ye fa fa-forward"></i></a>';
+                lis += nextPage;
+                lis += lastPage;
+                $("#pageNum").html(lis);
+
+                //2.列表数据展示
+                var news_lis = "";
+                for (var i = 0; i < pb.list.length; i++) {
+                    var news = pb.list[i];
+                    var date_md = news.ndate.split("-");
+                    var li = '<li class="clearfix" id="news_lis">\n' +
+                        '\t\t\t\t<div class="news_left clearfix">\n' +
+                        '\t\t\t\t\t<div class="pic">\n' +
+                        '\t\t\t\t\t\t<a href="news_show.html?nid='+news.nid+'"><img src="'+news.nimage+'" alt="" /></a>\n' +
+                        '\t\t\t\t\t\t<i></i>\n' +
+                        '\t\t\t\t\t</div>\n' +
+                        '\t\t\t\t\t<div class="txt">\n' +
+                        '\t\t\t\t\t\t<a href="news_show.html?nid='+news.nid+'">'+news.nname+'</a>\n' +
+                        '\t\t\t\t\t\t<p>'+news.nIntroduce+'</p>\n' +
+                        '\t\t\t\t\t</div>\n' +
+                        '\t\t\t\t</div>\n' +
+                        '\t\t\t\t<div class="news_right">\n' +
+                        '\t\t\t\t\t<span>'+date_md[1]+"-"+date_md[2]+'</span>\n' +
+                        '\t\t\t\t\t<time>'+news.ndate+'</time>\n' +
+                        '\t\t\t\t</div>\n' +
+                        '\t\t\t</li>';
+                    news_lis += li;
+                }
+                $("#news").html(news_lis);
+            });
+            //定位到页面的顶部
+            window.scrollTo(0,0);
+
+        }
+
+	</script>
+</head>
+<body>
+	
+<div>
+	<!--引入头部-->
+	<div id="header"></div>
+			
+	<!--banner  start-->
+	<section class="banner_zi">
+	    <div><img src="images/banner_news.jpg" alt=""></div>
+	</section>
+	<!--banner end-->
+	<div class="head_bar">
+		<span>位置：</span><a href="index.html">首页 </a> > <span class="active">新闻动态</span>
+	</div>
+		
+	<div class="news_zi">
+		<div class="top_qie">
+			<a href="" class="active">大同新闻</a>
+		</div>
+		<ul class="news_zi_ul" id="news">
+			<li class="clearfix" id="news_lis">
+				<div class="news_left clearfix">
+					<div class="pic">
+						<a href="news_show.html"><img src="images/news1.png" alt="" /></a>
+						<i></i>
+					</div>
+					<div class="txt">
+						<a href="news_show.html">暑假去哪玩？桃花苑天地避暑甚好！</a>
+						<p>
+							暑期近在眼前，还在犹豫带孩子去哪儿玩吗？炎热的夏天，一颗躁动的心，背上收拾好的背包，走遍大好河山
+							，感受大千世界，还不如隐居室外桃源桃花苑天地精品。少一些城市的喧嚣，回归大自然的清新脱俗，来一场说走就走的夏日之旅吧。
+						</p>
+					</div>
+				</div>
+				<div class="news_right">
+					<span>05.25</span>
+					<time>2016</time>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="news_left clearfix">
+					<div class="pic">
+						<a href="news_show.html"><img src="images/news2.png" alt="" /></a>
+						<i></i>
+					</div>
+					<div class="txt">
+						<a href="news_show.html">花落流水春又去</a>
+						<p>
+							春暖花开，桃花苑天地精品大咖云集，活动丰富。不仅有适合小朋友们的春游活动，有适合老年朋友的喝茶加棋牌
+							，还有书法大咖们的加盟，乃至电视真人秀节目的拍摄。
+							这可把桃花宝宝们忙坏了，不过没关系，累并快乐着，桃花宝宝非常欢迎大家的到来……
+						</p>
+					</div>
+				</div>
+				<div class="news_right">
+					<span>07.21</span>
+					<time>2016</time>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="news_left clearfix">
+					<div class="pic">
+						<a href="news_show.html"><img src="images/news3.png" alt="" /></a>
+						<i></i>
+					</div>
+					<div class="txt">
+						<a href="news_show.html">蝴蝶摘花来</a>
+						<p>
+							清朝末年，先生在宁波开了一家面店，生意不错。一天，一位即将回国的美国华侨
+							，登船前来到卜先生的店里吃面，离店时竟把一只皮箱落下了。
+							先生打烊时才发现这只皮箱，但已无法找到失主，只好把皮箱小心收藏，等待着失主前来认领。
+						</p>
+					</div>
+				</div>
+				<div class="news_right">
+					<span>04.20</span>
+					<time>2016</time>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="news_left clearfix">
+					<div class="pic">
+						<a href="news_show.html"><img src="images/news4.png" alt="" /></a>
+						<i></i>
+					</div>
+					<div class="txt">
+						<a href="news_show.html">花落流水春又去</a>
+						<p>
+							越中山水绝纤尘，溪口风光步步新；若得会稽藏拙处，
+							白云深处亦行春。”范仲淹眼中最向往的山水风光，正是杭州萧山河上镇下门村的真实写照。
+						</p>
+					</div>
+				</div>
+				<div class="news_right">
+					<span>04.05</span>
+					<time>2016</time>
+				</div>
+			</li>
+			<li class="clearfix">
+				<div class="news_left clearfix">
+					<div class="pic">
+						<a href="news_show.html"><img src="images/news5.png" alt="" /></a>
+						<i></i>
+					</div>
+					<div class="txt">
+						<a href="news_show.html">这是我们想去的地方</a>
+						<p>
+							春暖花开，桃花苑天地精品大咖云集，活动丰富。不仅
+							有适合小朋友们的春游活动，有适合老年朋友的喝茶加棋牌，
+							还有书法大咖们的加盟，乃至电视真人秀节目的拍摄。
+							这可把桃花宝宝们忙坏了，不过没关系，累并快乐着，桃花宝宝非常欢迎大家的到来……
+						</p>
+					</div>
+				</div>
+				<div class="news_right">
+					<span>03.21</span>
+					<time>2016</time>
+				</div>
+			</li>
+		</ul>
+		<div class="page" id="pageNum">
+				<a href=""><i class="ye fa fa-backward"></i></a>
+				<a href=""><i class="ye fa fa-caret-left"></i></a>
+				<a href="" class="active">1</a>
+				<a href="" class="">2</a>
+				<a href="" class="">3</a>
+				<span href="" class="">…</span> 
+				<a href=""><i class="ye fa fa-caret-right"></i></a>
+				<a href=""><i class="ye fa fa-forward"></i></a>
+		</div>
+	</div>
+
+
+
+	<!--导入底部-->
+	<div id="footer"></div>
+
+	<!--移动端  Mmenu-->
+	<nav id="mmenu">
+
+		<ul>
+
+			<li><a href="index.html" class="active">首页</a></li>
+			<li><a href="scenic_overview.html">锦绣平城</a></li>
+			<li><a href="food.html">探秘平城</a>
+				<ul>
+					<li><a href="food.html">政治制度</a></li>
+					<li><a href="food.html">考古宗教</a></li>
+					<li><a href="food.html">文化艺术</a></li>
+				</ul>
+			</li>
+			<li><a href="politics.html">千年平城</a>
+				<ul>
+					<li><a href="food.html">千年历史</a></li>
+					<li><a href="food.html">千年风光</a></li>
+				</ul>
+			</li>
+			<li><a href="news.html">新闻动态</a></li>
+			<li><a href="contact.html">联系我们</a></li>
+
+		</ul>
+	</nav>
+
+	<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="js/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
+<!--slick-->
+<script src="js/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/wow.js" type="text/javascript" charset="utf-8"></script>
+
+<!--placeholder-->
+<script src="js/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){ $('input, textarea').placeholder(); });
+</script>
+
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+</body>
+</html>

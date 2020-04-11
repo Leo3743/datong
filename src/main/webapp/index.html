@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>北魏平城文化主题网站</title>
+	<meta name="keywords" content="北魏平城文化">
+	<meta name="description" content="北魏平城文化">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="shortcut icon" href="images/favicon.ico">
+	
+	<!-- include main css -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-3.3.1.js"></script>
+	<!--导入布局js，共享header和footer-->
+	<script type="text/javascript" src="js/include_zi.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/slick.css"/>	
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/jquery.mmenu.all.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css' media="all" />
+	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+	<!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script>
+        //获取cid
+        $(function () {
+            //当页面加载完成后，调用load方法，发送ajax请求加载数据
+            load();
+        });
+        function load(currentPage) {
+            //发送ajax请求，请求route/pageQuery,传递cid
+            $.get("news/pageQuery",{currentPage:currentPage},function (pb) {
+                //2.列表数据展示
+                var news_lis = "";
+                for (var i = 0; i < 3; i++) {
+                    var news = pb.list[i];
+                    var date_md = news.ndate.split("-");
+                    var li = '<li class="clearfix wow bounceIn">\n' +
+                        '\t\t\t\t\t<div class="news_left">\n' +
+                        '\t\t\t\t\t\t<a href="news.html">'+news.nname+'</a>\n' +
+                        '\t\t\t\t\t\t<p>'+news.nIntroduce+'</p>\n' +
+                        '\t\t\t\t\t</div>\n' +
+                        '\t\t\t\t\t<div class="news_right">\n' +
+                        '\t\t\t\t\t\t<span>'+date_md[1]+"-"+date_md[2]+'</span>\n' +
+                        '\t\t\t\t\t\t<time>'+news.ndate+'</time>\n' +
+                        '\t\t\t\t\t</div>\n' +
+                        '\t\t\t\t</li>';
+                    news_lis += li;
+                }
+                $("#news").html(news_lis);
+            });
+        }
+	</script>
+</head>
+<body>
+<div>
+	<!--引入头部-->
+	<div id="header"></div>
+
+	<!--banner  start-->
+	<section class="banner">
+	    <div><a href="index.html"><img src="images/mingtian1.jpg"  alt=""></a></div>
+	    <div><a href="index.html"><img src="images/yungangshiku.jpg"  alt=""></a></div>
+	    <div><a href="index.html"><img src="images/chengqiang.jpg"  alt=""></a></div>
+	</section>
+	<!--banner end-->
+	<div class="jqgk">
+		<div class="contai">
+			<div class="top_tit">
+				<span class="span1"><a href="scenic_overview.html">古 都 平 城</a></span><br/>
+				<span class="span2">ANCIENT CAPITAL PING</span>
+			</div>
+			<p class="wow bounceIn" >
+				平城，今大同，位于山西省境内，在北魏时期为其都城，是当时北方政治、经济、文化的中心<br/>
+					“平城”取自汉语“平成”，因其古代处于汉族与北方游牧民族的交界地带，而以“平”命之<br/>
+					 平城时代，是大同古代历史上最为辉煌的时刻，平城文化也有着无可比拟的历史地位与影响
+			</p>
+			<div class="xia_x">
+				<span class="img"></span>
+			</div>
+		</div>	
+	</div>
+	<div class="wyzl">
+		<div class="top_tit">
+			<span class="span1"><a href="cloth.html">锦绣平城</a></span><br />
+			<span class="span2">SPLENDID PING</span>
+		</div>
+		<ul class="clearfix"> 
+			<li class="wow bounceIn">
+				<a href="cloth.html"><img src="images/fushi.jpg" alt="" class="vcenter" /><i></i></a>
+				<a href="cloth.html">平城服饰</a>
+			</li>
+			<li class="wow bounceIn">
+				<a href="food.html"><img src="images/yinshi.jpg" alt="" class="vcenter" /><i></i></a>
+				<a href="food.html">平城饮食</a>
+			</li>
+			<li class="wow bounceIn">
+				<a href="room.html"><img src="images/fangwu.jpg" alt="" class="vcenter" /><i></i></a>
+				<a href="room.html">平城居室</a>
+			</li>
+			<!--<li class="wow bounceIn">
+				<a href="food.html"><img src="images/home_3.png" alt="" class="vcenter" /><i></i></a>
+				<a href="food.html">平城交通</a>
+			</li>-->
+		</ul>
+	</div>
+	<!--wyzl end-->
+	<div class="syzz">
+		<div class="top_tit">
+        	<span class="span1"><a href="scenic_overview.html">千年平城</a></span><br />
+			<span class="span2">MILLENNIUM PING</span>
+		</div>
+		<div class="syzz_con  clearfix">
+			<div class="left">
+				<div><a href="sense.html"><img src="images/yungang1.jpg" alt="" / class="vcenter"> <i></i></a></div>
+				<div><a href="sense.html"><img src="images/mingtang.jpg" alt="" /  class="vcenter"> <i></i></a></div>
+				<div><a href="sense.html"><img src="images/huayansi.jpg" alt="" /  class="vcenter"> <i></i></a></div>
+			</div>
+			<div class="right">
+				<img src="images/jing.png" alt="" />
+				<div class="fang_t">
+					<span>遗 |</span>
+					<span>迹 |</span>
+					<span>介 |</span>
+					<span>绍</span>
+				</div>
+				<div class="fang_c">
+					在北魏平城的历史上，曾创造了许多灿烂的文化艺术，留下了众多闻名中外的名胜古迹。
+				</div>
+				<div class="pr_ne clearfix">
+					<span class="pr">
+					
+						上一个
+					</span>
+					<span class="ne">
+						下一个
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="xia_x">
+				<span class="img"></span>
+		</div>
+	</div>
+	<!--syzz end-->
+	<div class="home_news">
+		<div class="news_con">
+			<div class="top_tit">
+				<span class="span1"><a href="news.html">新闻动态</a></span><br />
+				<span class="span2">NEWS</span>
+			</div>
+			<ul id="news">
+				<li class="clearfix wow bounceIn">
+					<div class="news_left">
+						<a href="news.html">学术界聚焦北魏平城，专家们都说了些什么？</a>
+						<p>
+							9月17日至19日，“2019北魏平城的身份塑造和传统融合国际学术研讨会”在大同召开，来自国内外的40多名学者就北魏平城“鲜卑遗存与传统、
+							汉地传统与变化、其他传统与融合、平城传统与形成”等相关内容开展学术研讨与交流，
+							古都大同再次被推到了北魏历史文化学术交流探讨的制高点，引发了国内外学术界的关注和聚焦。
+						</p>
+					</div>
+					<div class="news_right">
+						<span>11.11</span>
+						<time>2020</time>
+					</div>
+				</li>
+				<li class="clearfix wow bounceIn">
+					<div class="news_left">
+						<a href="news.html">北魏：大平城时代，告诉你一个鲜为人知的大同</a>
+						<p>
+							东汉末年，农民起义，群雄割据。公元307年，晋怀帝封拓跋骑卢为代王，并将勾注山以北的崞县(今浑源)、凡時(今应县)、阴馆(山阴)、马邑、
+							楼烦(今朔州)等五县赐予猗卢。此后，二百余年内，雁门关外北部地区逐步为拓跋鲜卑所有。公元386年，拓跋珪称帝，建立魏朝(世称北魏或后魏),
+							自盛乐迁都平城即今大同市。
+						</p>
+					</div>
+					<div class="news_right">
+						<span>11.11</span>
+						<time>2020</time>
+					</div>
+				</li>
+				<li class="clearfix">
+					<div class="news_left">
+						<a href="news.html">北魏平城明堂，到底有什么名堂？</a>
+						<p>
+							清代学者阮元在《明堂论》中说：“明堂，是天子居住的地方。天子在这里祭祀上帝和祖先，在这里举行养老尊贤的典礼，
+							在这里举行宴飨、射箭比赛、献俘等仪式，在这里颁布教化、发布政令，在这里朝见四方诸侯。”
+							真是这样吗？其实哪个朝代的学者也有失误，不能说不对，但至少说，不完全都对！譬如——北魏平城的明堂。
+						</p>
+					</div>
+					<div class="news_right">
+						<span>11.11</span>
+						<time>2020</time>
+					</div>
+				</li>
+			</ul>
+			<a href="news.html" class="more">MORE</a>
+		</div>
+	</div>
+
+	<!--导入底部-->
+	<div id="footer"></div>
+
+	<!--移动端  Mmenu-->
+	<nav id="mmenu">
+
+		<ul>
+
+			<li><a href="index.html" class="active">首页</a></li>
+			<li><a href="scenic_overview.html">锦绣平城</a></li>
+			<li><a href="food.html">探秘平城</a>
+				<ul>
+					<li><a href="food.html">政治制度</a></li>
+					<li><a href="food.html">考古宗教</a></li>
+					<li><a href="food.html">文化艺术</a></li>
+				</ul>
+			</li>
+			<li><a href="politics.html">千年平城</a>
+				<ul>
+					<li><a href="food.html">千年历史</a></li>
+					<li><a href="food.html">千年风光</a></li>
+				</ul>
+			</li>
+			<li><a href="news.html">新闻动态</a></li>
+			<li><a href="contact.html">联系我们</a></li>
+
+		</ul>
+	</nav>
+
+</div>
+<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="js/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+<!--slick-->
+<script src="js/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/wow.js" type="text/javascript" charset="utf-8"></script>
+
+<!--placeholder-->
+<script src="js/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){ $('input, textarea').placeholder(); });
+</script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+</body>
+</html>

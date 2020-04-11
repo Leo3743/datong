@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>北魏平城文化主题网站</title>
+	<meta name="keywords" content="北魏平城文化">
+	<meta name="description" content="北魏平城文化">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="shortcut icon" href="images/favicon.ico">
+
+	<!-- include main css -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="js/getParameter.js"></script>
+	<!--导入布局js，共享header和footer-->
+	<script type="text/javascript" src="js/include_zi.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="css/jquery.mmenu.all.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link href="font-awesome-4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css' media="all" />
+	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+	<!--[if lt IE 9]>
+	<script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<script>
+		$(function () {
+            load();
+            loadOne();
+
+        });
+			function loadOne() {
+                //1.获取rid
+                var nid = getParameter("nid");
+                //2.发送请求请求 news/findOne
+                $.get("news/findOne",{nid:nid},function (news) {
+                    //3.解析数据填充html
+                    $("#title").html(news.nname);
+                    $("#big_title").html(news.nname);
+                    $("#time").html("来源：北魏平城网   &nbsp;&nbsp;    发布时间："+news.ndate);
+                    $("#content").html(news.ncontent);
+                    var last = nid - 1;
+                    if (last < 1){
+                        last = 1;
+                    }
+                    var next = ++nid;
+                    var li = "";
+                    var a = '<a href="news_show.html?nid='+last+'" class="s_prev">上一篇</a>';
+                    var b = '<a href="news_show.html?nid='+next+'" class="x_next">下一篇</a>';
+                    li += a;
+                    li += b;
+                    $("#label").html(li);
+                });
+            }
+            function load(currentPage) {
+                //发送ajax请求，请求route/pageQuery
+                $.get("news/pageQuery", {currentPage: currentPage}, function (pb) {
+                    //2.列表数据展示
+                    var news_lis = "";
+                    for (var i = 0; i < 4; i++) {
+                        var news = pb.list[i];
+                        var date_md = news.ndate.split("-");
+                        var li = '<li class="clearfix wow bounceIn" href="news_show.html?nid=' + news.nid + '">\n' +
+                            '\t\t\t\t\t<div class="news_left">\n' +
+                            '\t\t\t\t\t\t<a href="news_show.html?nid=' + news.nid + '">' + news.nname + '</a>\n' +
+                            '\t\t\t\t\t\t<p>' + news.nIntroduce + '</p>\n' +
+                            '\t\t\t\t\t</div>\n' +
+                            '\t\t\t\t\t<div class="news_right">\n' +
+                            '\t\t\t\t\t\t<span>' + date_md[1] + "-" + date_md[2] + '</span>\n' +
+                            '\t\t\t\t\t\t<time>' + news.ndate + '</time>\n' +
+                            '\t\t\t\t\t</div>\n' +
+                            '\t\t\t\t</li>';
+                        news_lis += li;
+                    }
+                    $("#news").html(news_lis);
+                });
+
+        }
+	</script>
+</head>
+<body>
+	
+<div>
+	<!--引入头部-->
+	<div id="header"></div>
+			
+	<!--banner  start-->
+	<section class="banner_zi">
+	    <div><img src="images/banner_new.png" alt=""></div>	   
+	</section>
+	<!--banner end-->
+	<div class="head_bar">
+		<span>位置：</span><a href="index.html">首页 </a> > <a href="news.html">新闻动态</a> > <span class="active" id="title"></span>
+	</div>
+	<div class="news_show">
+		<span class="show_t" id="big_title"></span>
+		<span class="fa_time" id="time"></span>
+		<p id="content">
+
+		</p>
+		<!--<div class="s_img clearfix">
+			<div class="pic">
+				<img src="images/show1.png" alt="" class="vcenter"/>
+				<i></i>
+			</div>
+			<div class="pic">
+				<img src="images/show2.png" alt="" class="vcenter"/>
+				<i></i>
+			</div>
+
+		</div>-->
+		<div class="s_x clearfix" id="label">
+			<a href="" class="s_prev" >上一篇</a>
+			<b href="" class="x_next" >下一篇</b>
+		</div>
+	</div>
+
+	
+	<div class="home_news">
+		<div class="news_con">
+			<div class="top_tit">
+				<span class="span1"><a href="news.html">相关新闻</a></span><br />
+				
+			</div>
+			<ul id="news">
+
+			</ul>
+			<a href="news.html" class="more">MORE</a>
+		</div>
+	</div>
+
+
+	<!--导入底部-->
+	<div id="footer"></div>
+
+	<!--移动端  Mmenu-->
+	<nav id="mmenu">
+
+		<ul>
+
+			<li><a href="index.html" class="active">首页</a></li>
+			<li><a href="scenic_overview.html">锦绣平城</a></li>
+			<li><a href="food.html">探秘平城</a>
+				<ul>
+					<li><a href="food.html">政治制度</a></li>
+					<li><a href="food.html">考古宗教</a></li>
+					<li><a href="food.html">文化艺术</a></li>
+				</ul>
+			</li>
+			<li><a href="politics.html">千年平城</a>
+				<ul>
+					<li><a href="food.html">千年历史</a></li>
+					<li><a href="food.html">千年风光</a></li>
+				</ul>
+			</li>
+			<li><a href="news.html">新闻动态</a></li>
+			<li><a href="contact.html">联系我们</a></li>
+
+		</ul>
+	</nav>
+
+</div>
+<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="js/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
+<!--slick-->
+<script src="js/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/wow.js" type="text/javascript" charset="utf-8"></script>
+
+<!--placeholder-->
+<script src="js/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){ $('input, textarea').placeholder(); });
+</script>
+
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+</body>
+</html>

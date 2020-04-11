@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>北魏平城文化主题网站</title>
+    <meta name="keywords" content="北魏平城文化">
+    <meta name="description" content="北魏平城文化">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- include main css -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.js"></script>
+    <script type='text/javascript' src='js/jquery.min.js'></script>
+    <script src="js/getParameter.js"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include_zi.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="css/route-detail.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.mmenu.all.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link href="font-awesome-4.5.0/css/font-awesome.min.css" rel='stylesheet' type='text/css' media="all" />
+    <link rel="stylesheet" type="text/css" href="css/animate.css"/>
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/r29/html5.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+        $(function () {
+            //1.获取sid
+            var sid = getParameter("sid");
+            //2.发送请求请求 sense/findOne
+            $.get("sense/findOne",{sid:sid},function (sense) {
+                //3.解析数据填充html
+                $("#title").html(sense.sname);
+                $("#name").html(sense.sname);
+                $("#content").html(sense.sIntroduce);
+
+                //图片展示
+
+                var ddstr = '<a class="up_img up_img_disable"></a>';
+
+                //遍历routeImgList
+                for (var i = 0; i < sense.senseImgList.length; i++) {
+                    var astr ;
+                    if(i >= 4){
+                        astr = '<a title="" class="little_img" data-bigpic="'+sense.senseImgList[i].bigPic+'" style="display:none;">\n' +
+                            '<img src="'+sense.senseImgList[i].smallPic+'">\n' +
+                            '</a>';
+                    }else{
+                        astr = '<a title="" class="little_img" data-bigpic="'+sense.senseImgList[i].bigPic+'">\n' +
+                            '<img src="'+sense.senseImgList[i].smallPic+'">\n' +
+                            '</a>';
+                    }
+
+
+                    ddstr += astr;
+                }
+                ddstr+='<a class="down_img down_img_disable" style="margin-bottom: 0;"></a>';
+                $("#dd").html(ddstr);
+                var dt = '<img alt="" class="big_img" src="'+sense.senseImgList[0].bigPic+'">';
+                $("#dt").html(dt);
+                //图片展示和切换代码调用
+                goImg();
+
+
+            })
+        });
+    </script>
+</head>
+<body>
+
+<div>
+    <!--引入头部-->
+    <div id="header"></div>
+    <!--banner  start-->
+    <section class="banner_zi">
+        <div><img src="images/banner_jinxiu.jpg" alt=""></div>
+    </section>
+    <!--banner end-->
+    <div class="head_bar">
+        <span>位置：</span><a href="index.html">首页 </a> > <span class="active">千年风光</span> >
+        <span class="active" id="name">千年风光</span>
+    </div>
+    <div class="hotel-details">
+        <div class="hotel-details-hd">
+            <div class="title" id="title"></div>
+        </div>
+        <!--<div class="warper">
+            <div id="wowslider-container1">
+                <div class="ws_images">
+                    <ul id="bimg">
+                        <li><a target="_blank" ><img  src="images/bimg1.jpg" /></a></li>
+                        <li><a target="_blank" ><img  src="images/bimg2.jpg" /></a></li>
+                        <li><a target="_blank" ><img  src="images/bimg3.jpg" /></a></li>
+                        <li><a target="_blank" ><img  src="images/bimg1.jpg" /></a></li>
+                    </ul>
+                </div>
+                <div class="ws_thumbs">
+                    <div id="simg">
+                        <a target="_blank" ><img src="images/simg1.jpg" /></a>
+                        <a target="_blank" ><img src="images/simg2.jpg" /></a>
+                        <a target="_blank" ><img src="images/simg3.jpg" /></a>
+                        <a target="_blank" ><img src="images/simg1.jpg" /></a>
+                    </div>
+                </div>
+                <div class="ws_shadow"></div>
+            </div>
+        </div>-->
+        <div class="prosum_box">
+            <dl class="prosum_left">
+                <dd id="dd">
+                    <a class="up_img up_img_disable"></a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m40920d0669855e745d97f9ad1df966ebb.jpg">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m20920d0669855e745d97f9ad1df966ebb.jpg">
+                    </a>
+                    <a title="" class="little_img cur_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m49788843d72171643297ccc033d9288ee.jpg">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m29788843d72171643297ccc033d9288ee.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4531a8dbceefa2c44e6d0e35627cd2689.jpg">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2531a8dbceefa2c44e6d0e35627cd2689.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m46d8cb900e9f6c0a762aca19eae40c00c.jpg">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m26d8cb900e9f6c0a762aca19eae40c00c.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m45ea00f6eba562a767b5095bbf8cffe07.jpg" style="display:none;">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m25ea00f6eba562a767b5095bbf8cffe07.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4265ec488cd1bc7ce749bc8c9b34b87bc.jpg" style="display:none;">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2265ec488cd1bc7ce749bc8c9b34b87bc.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m4e7e964909d7dd1a9f6e5494d4dc0c847.jpg" style="display:none;">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m2e7e964909d7dd1a9f6e5494d4dc0c847.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m467db00e1b76718fab0fe8b96e10f4d35.jpg" style="display:none;">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m267db00e1b76718fab0fe8b96e10f4d35.jpg">
+                    </a>
+                    <a title="" class="little_img" data-bigpic="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size4/201703/m487bbbc6e43eba6aa6a36cc1a182f7a20.jpg" style="display:none;">
+                        <img src="http://www.jinmalvyou.com/Public/uploads/goods_img/img_size2/201703/m287bbbc6e43eba6aa6a36cc1a182f7a20.jpg">
+                    </a>
+                    <a class="down_img down_img_disable" style="margin-bottom: 0;"></a>
+                </dd>
+                <dt id="dt">
+                    <img alt="" class="big_img" src="">
+                </dt>
+
+            </dl>
+        </div>
+
+        <div class="about-hotel">
+            <div class="about-hotel-hd">
+                <h2>遗迹简介</h2>
+            </div>
+        </div>
+        <div class="about-hotel-bd">
+            <p></p>
+            <p style="text-indent: 2em" id="content">
+                <span style="font-family:font-size:16px;color:#000000;line-height:2;">
+                    唐华清宫，后也称"华清池"，包括原骊山国家森林公园，与颐和园、圆明园、承德避暑山庄并称为中国四大皇家园林。
+                    华清宫是唐代封建帝王游幸的别宫，位于陕西省西安市临潼区，南依骊山，北面渭水，与"世界第八大奇迹"兵马俑相邻。
+                    华清宫是国家首批5A级旅游景区、全国重点风景名胜区、全国重点文物保护单位、国家级文化产业示范基地、国家地质森林公园。
+                    周、秦、汉、隋、唐等历代帝王在此建有离宫别苑。因其亘古不变的温泉资源、烽火戏诸侯的历史典故、唐明皇与杨贵妃的爱情故事、
+                    "西安事变"发生地而享誉海内外，成为中国唐宫文化旅游标志性景区。
+                </span>
+            </p>
+            <p></p>
+        </div>
+    </div>
+
+    <!--导入底部-->
+    <div id="footer"></div>
+
+
+    <!--移动端  Mmenu-->
+    <nav id="mmenu">
+
+        <ul>
+
+            <li><a href="index.html" class="active">首页</a></li>
+            <li><a href="scenic_overview.html">锦绣平城</a></li>
+            <li><a href="food.html">探秘平城</a>
+                <ul>
+                    <li><a href="food.html">政治制度</a></li>
+                    <li><a href="food.html">考古宗教</a></li>
+                    <li><a href="food.html">文化艺术</a></li>
+                </ul>
+            </li>
+            <li><a href="politics.html">千年平城</a>
+                <ul>
+                    <li><a href="food.html">千年历史</a></li>
+                    <li><a href="food.html">千年风光</a></li>
+                </ul>
+            </li>
+            <li><a href="news.html">新闻动态</a></li>
+            <li><a href="contact.html">联系我们</a></li>
+
+        </ul>
+    </nav>
+</div>
+<script>
+    $(document).ready(function() {
+
+        //自动播放
+        goImg();
+        var timer = setInterval("auto_play()", 5000);
+    });
+    function goImg(){
+        //焦点图效果
+        //点击图片切换图片
+        $('.little_img').on('mousemove', function() {
+            $('.little_img').removeClass('cur_img');
+            var big_pic = $(this).data('bigpic');
+            $('.big_img').attr('src', big_pic);
+            $(this).addClass('cur_img');
+        });
+        //上下切换
+        var picindex = 0;
+        var nextindex = 4;
+        $('.down_img').on('click',function(){
+            var num = $('.little_img').length;
+            if((nextindex + 1) <= num){
+                $('.little_img:eq('+picindex+')').hide();
+                $('.little_img:eq('+nextindex+')').show();
+                picindex = picindex + 1;
+                nextindex = nextindex + 1;
+            }
+        });
+        $('.up_img').on('click',function(){
+            var num = $('.little_img').length;
+            if(picindex > 0){
+                $('.little_img:eq('+(nextindex-1)+')').hide();
+                $('.little_img:eq('+(picindex-1)+')').show();
+                picindex = picindex - 1;
+                nextindex = nextindex - 1;
+            }
+        });
+    }
+    //自动轮播方法
+    function auto_play() {
+        var cur_index = $('.prosum_left dd').find('a.cur_img').index();
+        cur_index = cur_index - 1;
+        var num = $('.little_img').length;
+        var max_index = 3;
+        if ((num - 1) < 3) {
+            max_index = num - 1;
+        }
+        if (cur_index < max_index) {
+            var next_index = cur_index + 1;
+            var big_pic = $('.little_img:eq(' + next_index + ')').data('bigpic');
+            $('.little_img').removeClass('cur_img');
+            $('.little_img:eq(' + next_index + ')').addClass('cur_img');
+            $('.big_img').attr('src', big_pic);
+        } else {
+            var big_pic = $('.little_img:eq(0)').data('bigpic');
+            $('.little_img').removeClass('cur_img');
+            $('.little_img:eq(0)').addClass('cur_img');
+            $('.big_img').attr('src', big_pic);
+        }
+    }
+</script>
+<!--Include Js-->
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!--移动端导航-->
+<script src="js/jquery.mmenu.all.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+
+<!--slick-->
+<script src="js/slick.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/wow.js" type="text/javascript" charset="utf-8"></script>
+
+<!--placeholder-->
+<script src="js/jquery.placeholder.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){ $('input, textarea').placeholder(); });
+</script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript">
+    jQuery("#wowslider-container1").wowSlider({effect:"cube",prev:"",next:"",duration:20*100,delay:20*100,width:1140,height:410,autoPlay:true,playPause:true,stopOnHover:false,loop:false,bullets:0,caption:true,captionEffect:"slide",controls:true,onBeforeStep:0,images:0});
+</script>
+
+
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+
+</body>
+</html>

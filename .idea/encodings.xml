@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/dao/UserDao.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/domain/PageBean.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/service/Impl/NewsServiceImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/service/Impl/UserServiceImpl.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/web/servlet/BaseServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/web/servlet/NewsServlet.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/web/servlet/UserServlet.java" charset="GBK" />
+  </component>
+</project>

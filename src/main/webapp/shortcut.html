@@ -1,0 +1,24 @@
+<script>
+    $(function () {
+        $.get("user/findOne",{},function (data) {
+            var msg = "欢迎回来 "+data.name;
+            $("#span_name").html(msg);
+            $("#mySpace").html("我的社区/");
+            $("#exit").html("退出");
+            $("#loginOut").hide(true);
+        });
+    });
+</script>
+<div class="shortcut" id="shortcut">
+        <!-- 未登录状态  -->
+        <div class="login" id="loginOut">
+            <a href="login.html">登录/</a>
+            <a href="register.html">注册</a>
+        </div>
+        <!-- 登录状态  -->
+        <div class="login" id="login">
+            <span id="span_name"></span>
+            <a href="mySpace.html" class="collection" id="mySpace"></a>
+            <a href="javascript:location.href='user/exit';" id="exit"></a>
+        </div>
+</div>
